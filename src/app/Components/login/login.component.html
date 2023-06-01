@@ -1,0 +1,33 @@
+<div class="body" style="background: url('{{newWall}}') no-repeat center center fixed;">
+    <mat-card class="loginCard">
+        <mat-card-header class="header">
+            <mat-card-title>Вхід</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="padding-top: 15px; padding-bottom: 15px;">
+            <form [formGroup]="loginForm" (ngSubmit)="initSession()">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Електронна пошта</mat-label>
+                    <input formControlName="email" matInput autocomplete="off">
+                    <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Пароль</mat-label>
+                    <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" matInput autocomplete="off">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                        <mat-icon matSuffix>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <button class="full-width" mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                    Увійти
+                    <mat-icon matSuffix>login</mat-icon>
+                </button>
+            </form>
+        </mat-card-content>
+        
+        <mat-card-footer>
+            <mat-progress-bar mode="query" *ngIf="showLoading"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+</div>

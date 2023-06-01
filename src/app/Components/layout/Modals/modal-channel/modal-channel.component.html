@@ -1,0 +1,122 @@
+<h2 mat-dialog-title>{{actionTitle}} канал</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="formChannel">
+        <mat-grid-list cols="4" rowHeight="65px">
+            <mat-grid-tile colspan="3">
+                <mat-form-field appearance="outline">
+                    <mat-label style="margin-top: 5px;">Назва</mat-label>
+                    <input matInput autocomplete="off" formControlName="name">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Ключ</mat-label>
+                    <input matInput autocomplete="off" formControlName="strKey">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile rowspan="2" colspan="4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Опис</mat-label>
+                    <textarea matInput autocomplete="off" formControlName="description" rows="3"></textarea>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Логотип</mat-label>
+                    <input matInput autocomplete="off" formControlName="logoUrl">
+                    <button mat-icon-button matSuffix color="primary" (click)="uploadFiles()" [disabled]="!selectedFiles">
+                        <mat-icon matSuffix>save_alt</mat-icon>
+                    </button>
+                    <input type="file" id="fileInput" name="fileInput" accept="image/*" (change)="selectFiles($event)" />
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="2">
+                <img *ngFor='let preview of previews' [src]="preview" class="preview">
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <div *ngFor="let progressInfo of progressInfos">
+                    <mat-progress-bar color="accent" [value]="progressInfo.value"></mat-progress-bar>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Мовить з</mat-label>
+                    <input matInput type="time" formControlName="startTime">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Мовить до</mat-label>
+                    <input matInput type="time" formControlName="endTime">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Мовить від</mat-label>
+                    <input matInput [matDatepicker]="broadcastFromPicker" formControlName="broadcastFrom">
+                    <mat-datepicker-toggle matIconSuffix [for]="broadcastFromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #broadcastFromPicker></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Часова зона</mat-label>
+                    <input matInput type="time" formControlName="timeShit">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Веб-сайт</mat-label>
+                    <input matInput autocomplete="off" formControlName="websiteUrl">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Вік</mat-label>
+                    <input matInput autocomplete="off" formControlName="startAge" type="number" min="0" max="120">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Категорія</mat-label>
+                    <mat-select formControlName="categoryId">
+                        <mat-option *ngFor="let item of listCategories" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Країна</mat-label>
+                    <mat-select formControlName="countryId">
+                        <mat-option *ngFor="let item of listCountries" [value]="item.id">
+                            <img with="20" height="14" [src]="getFlagUrl(item.flagUrl)" style="min-height: 14px; min-width: 20px; max-height: 14px; max-width: 20px;">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" style="margin: 1.25em;">
+    <button mat-raised-button mat-dialog-close color="warn">Скасувати</button>
+    <button mat-raised-button color="primary" [disabled]="formChannel.invalid" (click)="saveChannel()">{{buttonAction}}</button>
+</mat-dialog-actions>

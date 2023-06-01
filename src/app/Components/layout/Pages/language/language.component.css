@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+}
+
+mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-mdc-row {
+    background-color: #eee;
+}
+.mat-mdc-row:not(:nth-child(odd)){
+    background-color:#ddd;
+}
+
+.img_flag {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* object-position: left top; */
+}

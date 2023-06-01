@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>{{actionTitle}} країну</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="formCountry">
+        <mat-grid-list cols="4" rowHeight="90px">
+            <mat-grid-tile colspan="4">
+                <mat-form-field appearance="outline">
+                    <mat-label style="margin-top: 5px;">Країна</mat-label>
+                    <input matInput autocomplete="off" formControlName="name">
+                    <mat-icon matSuffix>flag</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile rowspan="2" colspan="4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Опис</mat-label>
+                    <textarea matInput autocomplete="off" formControlName="description" rows="4"></textarea>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Прапор</mat-label>
+                    <input matInput autocomplete="off" formControlName="flagUrl">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Герб</mat-label>
+                    <input matInput autocomplete="off" formControlName="coatArmsUrl">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Валюта</mat-label>
+                    <input matInput autocomplete="off" formControlName="currency">
+                    <mat-icon matSuffix>money</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Домен</mat-label>
+                    <input matInput autocomplete="off" formControlName="domain">
+                    <mat-icon matSuffix>language</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Числовий код</mat-label>
+                    <input matInput autocomplete="off" formControlName="isoNum">
+                    <mat-icon matSuffix>iso</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Трилітерний код</mat-label>
+                    <input matInput autocomplete="off" formControlName="isoAlpha3">
+                    <mat-icon matSuffix>filter_3</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Дволітерний код</mat-label>
+                    <input matInput autocomplete="off" formControlName="isoAlpha2">
+                    <mat-icon matSuffix>filter_2</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Телефонний код</mat-label>
+                    <input matInput autocomplete="off" formControlName="phoneCode">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="warn">Скасувати</button>
+    <button mat-raised-button color="primary" [disabled]="formCountry.invalid" (click)="saveCountry()">{{buttonAction}}</button>
+</mat-dialog-actions>

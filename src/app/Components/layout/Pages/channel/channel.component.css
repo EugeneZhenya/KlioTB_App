@@ -1,0 +1,55 @@
+table {
+    width: 100%;
+}
+
+mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-mdc-row {
+    background-color: whitesmoke;
+}
+.mat-mdc-row:not(:nth-child(odd)){
+    background-color:#efefef;
+}
+
+.img_logo {
+    height: 50px;
+    width: 50px;
+}
+
+tr.detail-row {
+    height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+    background: whitesmoke;
+}
+
+tr.element-row:not(.expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+  
+.zero-padding{
+    padding: 0;
+}
+  
+.mat-column-name {
+    width: 35%;
+    max-width: 200px;
+}
+  
+.mat-column-expandedDetail {
+    padding: 0px !important;
+}
+
+td , th {
+    white-space: nowrap;
+    max-width: 200px;
+}

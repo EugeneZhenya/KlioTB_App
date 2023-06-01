@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: -1.25em;
+}
+
+.mat-badge-large .mat-badge-content {
+    font-size: 12px;
+}

@@ -1,0 +1,15 @@
+.video {
+    width: 800px;
+    max-height: 80vh;
+    margin: 0 auto;
+}
+
+.video-wrapper {
+    position: relative;
+}
+
+.spinner {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+}

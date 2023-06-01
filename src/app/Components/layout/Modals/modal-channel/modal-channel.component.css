@@ -1,0 +1,34 @@
+mat-form-field {
+    width: 100%;
+    margin: 10px 10px;
+    margin-bottom: -1.25em;
+}
+
+form {
+    width: 820px;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+:host ::ng-deep .mdc-text-field__input::-webkit-calendar-picker-indicator {
+    display: block;
+}
+
+#fileInput {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+.preview {
+    width: 104px;
+    vertical-align: top;
+}

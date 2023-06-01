@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+    <span>My App</span>
+    <button mat-icon-button (click)="sidenav.toggle();">
+      <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened="true" style="width: 300px;">
+        <mat-nav-list>
+            <mat-list-item routerLink="/pages/dashboard">
+                <mat-icon matListItemIcon>dashboard</mat-icon>
+                <div matListItemLine>Панель приладів</div>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/pages/users">
+                <mat-icon matListItemIcon>group</mat-icon>
+                <div matListItemLine>Користувачі</div>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/pages/categories">
+                <mat-icon matListItemIcon>category</mat-icon>
+                <div matListItemLine>Категорії</div>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/pages/countries">
+                <mat-icon matListItemIcon>flag</mat-icon>
+                <div matListItemLine>Країни</div>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/pages/languages">
+                <mat-icon matListItemIcon>language</mat-icon>
+                <div matListItemLine>Мови</div>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/pages/channels">
+                <mat-icon matListItemIcon>tv</mat-icon>
+                <div matListItemLine>Канали</div>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/pages/playlists">
+                <mat-icon matListItemIcon>playlist_play</mat-icon>
+                <div matListItemLine>Списки відтворення</div>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="height: 90vh;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

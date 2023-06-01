@@ -1,0 +1,155 @@
+<h1 style="margin: 20px 0px 0px 40px;">Канали</h1>
+
+<mat-card style="margin: 20px 40px 40px 40px;">
+    <mat-card-title style="margin: 20px;">
+        <button mat-raised-button color="primary" (click)="newChannel()">
+            <mat-icon mat-list-icon>add</mat-icon>Додати
+        </button>
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="dashboard-card-content">
+        <mat-form-field appearance="fill">
+            <mat-label>Шукати</mat-label>
+            <input matInput (keyup)="applyTableFilter($event)" #input style="width: 100%;">
+        </mat-form-field>
+
+        <div class="mat-elevation-z2">
+            <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows #chanTbSort="matSort">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>№</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.id }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Канал</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="strKey">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ключ</th>
+                    <td mat-cell *matCellDef="let element"> {{element.strKey}} </td>
+                </ng-container>
+                <ng-container matColumnDef="logoUrl">
+                    <th mat-header-cell *matHeaderCellDef>Логотип</th>
+                    <td mat-cell *matCellDef="let element">
+                        <img src="{{backendUrl + element.logoUrl}}" class="img_logo" />
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="categoryDescription">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Категорія</th>
+                    <td mat-cell *matCellDef="let element"> {{element.categoryDescription}} </td>
+                </ng-container>
+                <ng-container matColumnDef="countryDescription">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Країна</th>
+                    <td mat-cell *matCellDef="let element"> {{element.countryDescription}} </td>
+                </ng-container>
+                <!--
+                <ng-container matColumnDef="liveTime">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Години мовлення</th>
+                    <td mat-cell *matCellDef="let element"> {{ getLocalTime(element.startTime) }} — {{ getLocalTime(element.endTime) }} </td>
+                </ng-container>
+                -->
+                <ng-container matColumnDef="broadcastFrom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Почав мовити</th>
+                    <td mat-cell *matCellDef="let element"> {{ getLocalDate(element.broadcastFrom) }} </td>
+                </ng-container>
+                <!--
+                <ng-container matColumnDef="startAge">
+                    <th mat-header-cell *matHeaderCellDef>Обмеження</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.startAge > 0 ? element.startAge + '+' : '' }} </td>
+                </ng-container>
+                -->
+                <ng-container matColumnDef="websiteUrl">
+                    <th mat-header-cell *matHeaderCellDef>Веб-сайт</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a mat-button href="{{ element.websiteUrl }}" target="_blank" *ngIf="element.websiteUrl">Перейти</a>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="timeShit">
+                    <th mat-header-cell *matHeaderCellDef>Часовий пояс</th>
+                    <td mat-cell *matCellDef="let element"> {{ getTimeZone(element.timeShit) }} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef style="width: 80px;"></th>
+                    <td mat-cell *matCellDef="let element" style="display: inline-flex; height: 57px;">
+                        <button mat-icon-button color="accent" (click)="addStream(element.id)">
+                            <mat-icon>add_to_queue</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="editChannel(element)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteChannel(element)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsTable.length">
+                      <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <table mat-table [dataSource]="element.videoStreams" class="mat-elevation-z8">
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef>№</th>
+                                <td mat-cell *matCellDef="let element"> # {{ element.id }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="isHidden">
+                                <th mat-header-cell *matHeaderCellDef>№</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-checkbox color="secondary" [checked]="element.isHidden" (change)="setStream(element)"></mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="streamUrl">
+                                <th mat-header-cell *matHeaderCellDef>Адреса відеопотку</th>
+                                <td mat-cell *matCellDef="let element"> {{ element.streamUrl }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef style="width: 80px;">Адреса відеопотку</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-icon-button color="accent" (click)="previewStream(element)">
+                                        <mat-icon>play_circle_filled</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="primary" (click)="editStream(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="deleteStream(element)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-row *matRowDef="let isotope; columns: streamsColumnsToDisplay"></tr>
+                        </table>
+                      </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsTable"></tr>
+                <tr mat-row *matRowDef="let row; columns : columnsTable;" class="element-row"
+                    [class.expanded-row]="expandedElement === row"></tr>
+
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Немає даних, які відповідають фільтру "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100, dataSource.data.length]" [pageSize]="100" showFirstLastButtons></mat-paginator>
+
+        </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-title style="margin: 20px;">
+        <button mat-raised-button color="primary" (click)="newChannel()">
+            <mat-icon mat-list-icon>add</mat-icon>Додати
+        </button>
+    </mat-card-title>
+</mat-card>

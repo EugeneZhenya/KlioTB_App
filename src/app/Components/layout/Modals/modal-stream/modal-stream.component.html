@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{actionTitle}} відеопотік</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="formStream">
+        <mat-grid-list cols="1" rowHeight="90px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label style="margin-top: 5px;">Адреса відеопотоку</mat-label>
+                    <input matInput autocomplete="off" formControlName="streamUrl">
+                    <mat-icon matSuffix>airplay</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="warn">Скасувати</button>
+    <button mat-raised-button color="primary" [disabled]="formStream.invalid" (click)="saveStream()">{{buttonAction}}</button>
+</mat-dialog-actions>
